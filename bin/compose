@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+if [[ "$1" == up ]] ; then
+  set -- "$@" --abort-on-container-exit --remove-orphans
+fi
+
+exec docker compose \
+  --file="${PWD}"/compose/db.yaml \
+  "$@"

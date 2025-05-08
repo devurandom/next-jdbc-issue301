@@ -1,0 +1,17 @@
+services:
+  db:
+    image: docker.io/library/postgres:14.17@sha256:1e6c52c366e39e869184256c45757e1c85ba15b3d244b0a2cea640da6df1c4e3
+    environment:
+      POSTGRES_DB: issue301
+      POSTGRES_USER: issue301
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - published: 5432
+        target: 5432
+    volumes:
+      - type: bind
+        source: ./docker-entrypoint-initdb.d/
+        target: /docker-entrypoint-initdb.d/
+        read_only: true
+        bind:
+          selinux: z
